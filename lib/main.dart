@@ -4,7 +4,7 @@ void main() {
   runApp(MaterialApp(
     title: 'Shared List',
     theme: ThemeData(
-      primarySwatch: Colors.blueGrey,
+      primarySwatch: Colors.green,
     ),
     home: const HomePage(),
   ));
@@ -60,6 +60,7 @@ class _HomePageState extends State<HomePage> {
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.amber[800],
+        backgroundColor: Colors.blueAccent,
         onTap: _onItemTapped,
       ),
     );
