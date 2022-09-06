@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_list/auth/auth_service.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -57,13 +59,20 @@ class _LoginViewState extends State<LoginView> {
             style: TextButton.styleFrom(
               textStyle: const TextStyle(fontSize: 20),
               backgroundColor: Colors.green,
-              primary: Colors.white,
+              foregroundColor: Colors.white,
             ),
-            onPressed: () {},
+            onPressed: () {
+              context.read<AuthService>().signIn(
+                    email: _email.text.trim(),
+                    password: _password.text.trim(),
+                  );
+            },
             child: const Text('Login'),
           ),
           TextButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed('/register');
+            },
             child:
                 const Text("If you aren't registered, click here to sign up"),
           )
