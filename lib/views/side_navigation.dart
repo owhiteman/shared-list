@@ -32,6 +32,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            const SizedBox(height: 50),
             buildHeader(context),
             buildMenuItems(context),
           ],
@@ -41,12 +42,22 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
   }
 
   Widget buildHeader(BuildContext context) {
-    return CircleAvatar(
-      backgroundColor: Colors.grey,
-      backgroundImage: NetworkImage(
-        userData['displayPicUrl'],
-      ),
-      radius: 40,
+    return Column(
+      children: [
+        CircleAvatar(
+          backgroundColor: Colors.grey,
+          backgroundImage: NetworkImage(
+            userData['displayPicUrl'],
+          ),
+          radius: 40,
+        ),
+        const SizedBox(height: 10),
+        Text(
+          userData['name'],
+          textAlign: TextAlign.center,
+          style: const TextStyle(fontWeight: FontWeight.bold),
+        )
+      ],
     );
   }
 
