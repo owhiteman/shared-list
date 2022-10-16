@@ -71,7 +71,7 @@ class _LoginViewState extends State<LoginView> {
           ),
           TextButton(
             onPressed: () {
-              Navigator.of(context).pushNamed('/register');
+              Navigator.of(context).pushReplacementNamed('/register');
             },
             child:
                 const Text("If you aren't registered, click here to sign up"),

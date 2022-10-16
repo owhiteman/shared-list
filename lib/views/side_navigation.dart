@@ -13,6 +13,7 @@ class NavigationDrawer extends StatefulWidget {
 
 class _NavigationDrawerState extends State<NavigationDrawer> {
   var userData = {};
+  bool isLoading = false;
 
   @override
   void initState() {
@@ -21,8 +22,13 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
   }
 
   setUserDetails() async {
+    setState(() {
+      isLoading = true;
+    });
     userData = await FirestoreMethods().getUserDetails();
-    setState(() {});
+    setState(() {
+      isLoading = false;
+    });
   }
 
   @override
@@ -42,23 +48,26 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
   }
 
   Widget buildHeader(BuildContext context) {
-    return Column(
-      children: [
-        CircleAvatar(
-          backgroundColor: Colors.grey,
-          backgroundImage: NetworkImage(
-            userData['displayPicUrl'],
-          ),
-          radius: 40,
-        ),
-        const SizedBox(height: 10),
-        Text(
-          userData['name'],
-          textAlign: TextAlign.center,
-          style: const TextStyle(fontWeight: FontWeight.bold),
-        )
-      ],
-    );
+    return isLoading
+        ? const Center(child: CircularProgressIndicator())
+        : Column(
+            children: [
+              CircleAvatar(
+                backgroundColor: Colors.grey,
+                backgroundImage: NetworkImage(
+                  userData['displayPicUrl'] ??
+                      "https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg",
+                ),
+                radius: 40,
+              ),
+              const SizedBox(height: 10),
+              Text(
+                userData['name'],
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              )
+            ],
+          );
   }
 
   Widget buildMenuItems(BuildContext context) {

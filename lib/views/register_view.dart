@@ -139,7 +139,8 @@ class _RegisterViewState extends State<RegisterView> {
               foregroundColor: Colors.white,
             ),
             onPressed: () {
-              if (_email.text.isNotEmpty &&
+              if (_name.text.isNotEmpty &&
+                  _email.text.isNotEmpty &&
                   (_password.text.isNotEmpty &&
                       _password.text == _confirmPassword.text)) {
                 context.read<AuthService>().signUp(
@@ -156,7 +157,9 @@ class _RegisterViewState extends State<RegisterView> {
             child: const Text('Register'),
           ),
           TextButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushReplacementNamed('/login');
+            },
             child: const Text(
                 'If you are already registered, click here to log in'),
           )
