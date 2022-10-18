@@ -1,13 +1,20 @@
 class Group {
-  final String uid;
+  final String groupId;
   final String name;
   final List members;
-  final List notes;
+  final String groupAdminId;
 
   Group({
-    required this.uid,
+    required this.groupId,
     required this.name,
     required this.members,
-    required this.notes,
+    required this.groupAdminId,
   });
+
+  Map<String, dynamic> toJson() => {
+        'groupId': groupId,
+        'name': name,
+        'members': members,
+        'groupAdminId': groupAdminId,
+      };
 }
