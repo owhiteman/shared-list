@@ -62,7 +62,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
               ),
               const SizedBox(height: 10),
               Text(
-                userData['name'],
+                userData['name'] ?? "Unkown",
                 textAlign: TextAlign.center,
                 style: const TextStyle(fontWeight: FontWeight.bold),
               )

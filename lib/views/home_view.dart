@@ -42,13 +42,17 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 children: [
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).pushNamed('/createGroup');
+                    },
                     child: const Text('Create Group'),
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).pushNamed('/joinGroup');
+                    },
                     child: const Text('Join Group'),
-                  )
+                  ),
                 ],
               ),
             ),

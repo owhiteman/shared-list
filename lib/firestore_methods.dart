@@ -28,7 +28,10 @@ class FirestoreMethods {
 
     try {
       await _firestore.collection('groups').doc(groupId).set(group.toJson());
-
+      await _firestore
+          .collection('users')
+          .doc(_auth.currentUser!.uid)
+          .update({'groupId': groupId});
       status = 'success';
     } catch (e) {
       print(e);
@@ -45,10 +48,22 @@ class FirestoreMethods {
           .collection('groups')
           .doc(groupId)
           .update({'members': FieldValue.arrayUnion(members)});
+      await _firestore
+          .collection('users')
+          .doc(_auth.currentUser!.uid)
+          .update({'groupId': groupId});
       status = 'success';
     } catch (e) {
       print(e);
     }
     return status;
+  }
+
+  Future<Map<String, dynamic>> getGroupDetails() async {
+    var userDetails = await getUserDetails();
+    var groupId = userDetails['groupId'];
+    var docRef = await _firestore.collection('groups').doc(groupId).get();
+
+    return docRef.data()!;
   }
 }
