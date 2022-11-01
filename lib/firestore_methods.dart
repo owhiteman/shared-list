@@ -66,4 +66,17 @@ class FirestoreMethods {
 
     return docRef.data()!;
   }
+
+  Future<List<String>> getGroupMembers() async {
+    List<String> nameList = [];
+    var groupDetails = await getGroupDetails();
+
+    for (var id in groupDetails['members']) {
+      var memberData = await _firestore.collection('users').doc(id).get();
+
+      var member = memberData.data()!;
+      nameList.add(member['name']);
+    }
+    return nameList;
+  }
 }

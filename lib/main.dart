@@ -5,10 +5,13 @@ import 'package:provider/provider.dart';
 import 'package:shared_list/auth/auth_service.dart';
 import 'package:shared_list/firebase_options.dart';
 import 'package:shared_list/views/create_group_view.dart';
+import 'package:shared_list/views/group_list_view.dart';
 import 'package:shared_list/views/home_view.dart';
 import 'package:shared_list/views/join_group_view.dart';
 import 'package:shared_list/views/login_view.dart';
 import 'package:shared_list/views/register_view.dart';
+
+import 'views/group_members_view.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -45,6 +48,7 @@ class MyApp extends StatelessWidget {
           '/home': (context) => const HomePage(),
           '/createGroup': (context) => const CreateGroupView(),
           '/joinGroup': (context) => const JoinGroupView(),
+          '/groupMembersView': (context) => const GroupMembersView(),
         },
       ),
     );

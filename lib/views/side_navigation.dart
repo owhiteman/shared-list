@@ -76,7 +76,9 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
         ListTile(
           leading: const Icon(Icons.group_outlined),
           title: const Text('Group members'),
-          onTap: () {},
+          onTap: () {
+            Navigator.of(context).pushNamed('/groupMembersView');
+          },
         ),
         const Divider(color: Colors.black54),
         ListTile(
