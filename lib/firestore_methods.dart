@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_list/models/group.dart';
+import 'package:shared_list/models/note.dart';
 import 'package:uuid/uuid.dart';
 
 class FirestoreMethods {
@@ -8,10 +9,18 @@ class FirestoreMethods {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   Future<Map<String, dynamic>> getUserDetails() async {
-    var docRef =
-        await _firestore.collection('users').doc(_auth.currentUser!.uid).get();
+    Map<String, dynamic> userDetails = {};
+    try {
+      var docRef = await _firestore
+          .collection('users')
+          .doc(_auth.currentUser!.uid)
+          .get();
+      userDetails = docRef.data()!;
+    } on Exception catch (e) {
+      print(e);
+    }
 
-    return docRef.data()!;
+    return userDetails;
   }
 
   Future<String> createGroup(String name) async {
@@ -60,23 +69,56 @@ class FirestoreMethods {
   }
 
   Future<Map<String, dynamic>> getGroupDetails() async {
-    var userDetails = await getUserDetails();
-    var groupId = userDetails['groupId'];
-    var docRef = await _firestore.collection('groups').doc(groupId).get();
+    Map<String, dynamic> groupDetails = {};
 
-    return docRef.data()!;
+    try {
+      var userDetails = await getUserDetails();
+      var groupId = userDetails['groupId'];
+      var docRef = await _firestore.collection('groups').doc(groupId).get();
+      groupDetails = docRef.data()!;
+    } on Exception catch (e) {
+      print(e);
+    }
+
+    return groupDetails;
   }
 
   Future<List<String>> getGroupMembers() async {
     List<String> nameList = [];
-    var groupDetails = await getGroupDetails();
+    try {
+      var groupDetails = await getGroupDetails();
 
-    for (var id in groupDetails['members']) {
-      var memberData = await _firestore.collection('users').doc(id).get();
+      for (var id in groupDetails['members']) {
+        var memberData = await _firestore.collection('users').doc(id).get();
 
-      var member = memberData.data()!;
-      nameList.add(member['name']);
+        var member = memberData.data()!;
+        nameList.add(member['name']);
+      }
+    } on Exception catch (e) {
+      print(e);
     }
     return nameList;
+  }
+
+  Future<String> createNote(String message) async {
+    var status = 'error';
+    try {
+      var noteId = const Uuid().v4();
+      var group = await getGroupDetails();
+      var groupId = group['groupId'];
+
+      Note note = Note(
+        noteId: noteId,
+        groupId: groupId,
+        authorId: _auth.currentUser!.uid,
+        text: message,
+        dateCreated: Timestamp.now(),
+      );
+      await _firestore.collection('notes').doc(noteId).set(note.toJson());
+      status = 'success';
+    } catch (e) {
+      print(e);
+    }
+    return status;
   }
 }
