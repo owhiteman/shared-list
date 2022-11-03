@@ -36,6 +36,15 @@ class _GroupListViewState extends State<GroupListView> {
         : Scaffold(
             appBar: AppBar(
               title: Text(groupData['name']),
+              actions: [
+                IconButton(
+                  onPressed: () {
+                    Navigator.of(context).pushNamed('/createNote');
+                  },
+                  icon: const Icon(Icons.add),
+                  iconSize: 30,
+                )
+              ],
             ),
             body: Column(
               children: const [
