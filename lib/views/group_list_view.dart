@@ -11,6 +11,7 @@ class GroupListView extends StatefulWidget {
 
 class _GroupListViewState extends State<GroupListView> {
   var groupData = {};
+  var notes = [];
   bool isLoading = false;
 
   @override
@@ -24,9 +25,16 @@ class _GroupListViewState extends State<GroupListView> {
       isLoading = true;
     });
     groupData = await FirestoreMethods().getGroupDetails();
+    notes = await FirestoreMethods().getGroupNotes();
     setState(() {
       isLoading = false;
     });
+  }
+
+  refresh() async {
+    groupData = await FirestoreMethods().getGroupDetails();
+    notes = await FirestoreMethods().getGroupNotes();
+    setState(() {});
   }
 
   @override
@@ -46,12 +54,23 @@ class _GroupListViewState extends State<GroupListView> {
                 )
               ],
             ),
-            body: Column(
-              children: const [
-                Center(
-                  child: Text('Home'),
+            body: Center(
+              child: RefreshIndicator(
+                onRefresh: (() async {
+                  refresh();
+                }),
+                child: ListView.builder(
+                  itemCount: notes.length,
+                  itemBuilder: (context, index) {
+                    final member = notes.elementAt(index)['text'];
+                    return Card(
+                      child: ListTile(
+                        title: Text(member),
+                      ),
+                    );
+                  },
                 ),
-              ],
+              ),
             ),
             drawer: const NavigationDrawer(),
           );

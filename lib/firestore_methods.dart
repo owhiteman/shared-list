@@ -26,6 +26,7 @@ class FirestoreMethods {
   Future<String> createGroup(String name) async {
     String status = 'error';
     List<String> members = [];
+    List<String> notes = [];
     String groupId = const Uuid().v4();
     members.add(_auth.currentUser!.uid);
 
@@ -33,7 +34,8 @@ class FirestoreMethods {
         groupId: groupId,
         name: name,
         members: members,
-        groupAdminId: _auth.currentUser!.uid);
+        groupAdminId: _auth.currentUser!.uid,
+        notes: notes);
 
     try {
       await _firestore.collection('groups').doc(groupId).set(group.toJson());
@@ -106,6 +108,8 @@ class FirestoreMethods {
       var noteId = const Uuid().v4();
       var group = await getGroupDetails();
       var groupId = group['groupId'];
+      var noteList = group['notes'] ?? [];
+      noteList.add(noteId);
 
       Note note = Note(
         noteId: noteId,
@@ -115,10 +119,29 @@ class FirestoreMethods {
         dateCreated: Timestamp.now(),
       );
       await _firestore.collection('notes').doc(noteId).set(note.toJson());
+      await _firestore
+          .collection('groups')
+          .doc(groupId)
+          .update({'notes': noteList});
       status = 'success';
     } catch (e) {
       print(e);
     }
     return status;
+  }
+
+  Future<List<Map<String, dynamic>>> getGroupNotes() async {
+    List<Map<String, dynamic>> notes = [];
+    try {
+      var groupDeatils = await getGroupDetails();
+      var noteIds = groupDeatils['notes'];
+      for (var noteId in noteIds) {
+        var note = await _firestore.collection('notes').doc(noteId).get();
+        notes.add(note.data()!);
+      }
+    } catch (e) {
+      print(e);
+    }
+    return notes;
   }
 }
