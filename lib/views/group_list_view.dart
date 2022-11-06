@@ -62,10 +62,20 @@ class _GroupListViewState extends State<GroupListView> {
                 child: ListView.builder(
                   itemCount: notes.length,
                   itemBuilder: (context, index) {
-                    final member = notes.elementAt(index)['text'];
+                    final note = notes.elementAt(index);
+                    var notetext = note['text'];
                     return Card(
                       child: ListTile(
-                        title: Text(member),
+                        title: Text(notetext),
+                        trailing: IconButton(
+                          icon: const Icon(Icons.delete),
+                          onPressed: () async {
+                            var res = await FirestoreMethods()
+                                .deleteNote(note['noteId']);
+                            refresh();
+                            if (res != 'success') print('error occured');
+                          },
+                        ),
                       ),
                     );
                   },

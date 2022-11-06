@@ -133,15 +133,40 @@ class FirestoreMethods {
   Future<List<Map<String, dynamic>>> getGroupNotes() async {
     List<Map<String, dynamic>> notes = [];
     try {
-      var groupDeatils = await getGroupDetails();
-      var noteIds = groupDeatils['notes'];
+      var groupDetails = await getGroupDetails();
+      var noteIds = groupDetails['notes'];
       for (var noteId in noteIds) {
         var note = await _firestore.collection('notes').doc(noteId).get();
-        notes.add(note.data()!);
+        var noteData = note.data()!;
+        if (noteData['noteId'] != null) {
+          notes.add(noteData);
+        }
       }
     } catch (e) {
       print(e);
     }
     return notes;
+  }
+
+  Future<String> deleteNote(String noteId) async {
+    var status = 'error';
+
+    try {
+      await _firestore.collection('notes').doc(noteId).delete();
+      var groupDetails = await getGroupDetails();
+      var noteIds = groupDetails['notes'];
+
+      await _firestore.collection('groups').doc(groupDetails['groupId']).update(
+        {
+          'notes': FieldValue.arrayRemove([noteId])
+        },
+      );
+
+      status = 'success';
+    } catch (e) {
+      print(e);
+    }
+
+    return status;
   }
 }
