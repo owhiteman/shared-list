@@ -40,6 +40,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
           children: [
             const SizedBox(height: 50),
             buildHeader(context),
+            const SizedBox(height: 10),
             buildMenuItems(context),
           ],
         ),
@@ -78,6 +79,18 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
           title: const Text('Group members'),
           onTap: () {
             Navigator.of(context).pushNamed('/groupMembersView');
+          },
+        ),
+        ListTile(
+          leading: const Icon(Icons.directions_walk),
+          title: const Text('Leave Group'),
+          onTap: () async {
+            var res = await FirestoreMethods().leaveGroup();
+            if (res == 'success') {
+              if (!mounted) return;
+              Navigator.of(context)
+                  .pushNamedAndRemoveUntil('/home', (route) => false);
+            }
           },
         ),
         const Divider(color: Colors.black54),

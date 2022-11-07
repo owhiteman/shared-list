@@ -166,6 +166,27 @@ class FirestoreMethods {
     } catch (e) {
       print(e);
     }
+    return status;
+  }
+
+  Future<String> leaveGroup() async {
+    var status = 'error';
+
+    try {
+      var user = await getUserDetails();
+      var group = await getGroupDetails();
+
+      await _firestore.collection('groups').doc(group['groupId']).update({
+        'members': FieldValue.arrayRemove([user['uid']])
+      });
+      await _firestore
+          .collection('users')
+          .doc(user['uid'])
+          .update({'groupId': null});
+      status = 'success';
+    } catch (e) {
+      print(e);
+    }
 
     return status;
   }
