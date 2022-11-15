@@ -47,7 +47,7 @@ app.*.map.json
 /android/app/release
 
 #Firebase Configuration
-/lib/firebase_options.dart
+/lib/firebase/firebase_options.dart
 /ios/Runner/GoogleService-Info.plist
 /ios/firebase_app_id_file.json
 /ios/Runner.xcodeproj/project.pbxproj

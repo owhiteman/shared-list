@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shared_list/firestore_methods.dart';
+import 'package:shared_list/firebase/firestore_methods.dart';
+import 'package:shared_list/widgets/button.dart';
 
 class JoinGroupView extends StatefulWidget {
   const JoinGroupView({super.key});
@@ -27,7 +28,7 @@ class _JoinGroupViewState extends State<JoinGroupView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Create Group'),
+        title: const Text('Join Group'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),
@@ -36,11 +37,11 @@ class _JoinGroupViewState extends State<JoinGroupView> {
             TextField(
               controller: _groupIdController,
               decoration: const InputDecoration(
-                hintText: 'Enter group name',
+                hintText: 'Enter group ID',
               ),
               autocorrect: false,
             ),
-            TextButton(
+            CustomButton(
               onPressed: () async {
                 var res =
                     await FirestoreMethods().joinGroup(_groupIdController.text);
@@ -51,7 +52,7 @@ class _JoinGroupViewState extends State<JoinGroupView> {
                   print('Error occured');
                 }
               },
-              child: const Text('Create Group'),
+              inputText: 'Join Group',
             )
           ],
         ),

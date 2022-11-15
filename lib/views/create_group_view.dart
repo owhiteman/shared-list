@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shared_list/firestore_methods.dart';
+import 'package:shared_list/firebase/firestore_methods.dart';
+import 'package:shared_list/widgets/button.dart';
 
 class CreateGroupView extends StatefulWidget {
   const CreateGroupView({super.key});
@@ -40,7 +41,7 @@ class _CreateGroupViewState extends State<CreateGroupView> {
               ),
               autocorrect: false,
             ),
-            TextButton(
+            CustomButton(
               onPressed: () async {
                 var res = await FirestoreMethods()
                     .createGroup(_groupNameController.text);
@@ -51,7 +52,7 @@ class _CreateGroupViewState extends State<CreateGroupView> {
                   print('Error occured');
                 }
               },
-              child: const Text('Create Group'),
+              inputText: 'Create Group',
             )
           ],
         ),

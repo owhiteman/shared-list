@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:shared_list/models/user.dart' as model;
-import 'package:shared_list/storage_methods.dart';
+import 'package:shared_list/firebase/storage_methods.dart';
 
 class AuthService {
   final FirebaseAuth _firebaseAuth;

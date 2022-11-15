@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shared_list/firestore_methods.dart';
+import 'package:shared_list/firebase/firestore_methods.dart';
 import 'package:shared_list/views/side_navigation.dart';
 
 class GroupListView extends StatefulWidget {

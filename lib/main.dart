@@ -3,7 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_list/auth/auth_service.dart';
-import 'package:shared_list/firebase_options.dart';
+import 'package:shared_list/firebase/firebase_options.dart';
 import 'package:shared_list/views/create_group_view.dart';
 import 'package:shared_list/views/create_note_view.dart';
 import 'package:shared_list/views/home_view.dart';
@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Shared List',
         theme: ThemeData(
-          primarySwatch: Colors.green,
+          primarySwatch: Colors.deepOrange,
         ),
         home: const AuthenticationWrapper(),
         routes: {

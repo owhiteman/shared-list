@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shared_list/firestore_methods.dart';
+import 'package:shared_list/firebase/firestore_methods.dart';
 
 class GroupMembersView extends StatefulWidget {
   const GroupMembersView({super.key});

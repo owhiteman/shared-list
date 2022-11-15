@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_list/auth/auth_service.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_list/widgets/button.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({Key? key}) : super(key: key);
@@ -132,12 +133,8 @@ class _RegisterViewState extends State<RegisterView> {
                   ))
             ],
           ),
-          TextButton(
-            style: TextButton.styleFrom(
-              textStyle: const TextStyle(fontSize: 20),
-              backgroundColor: Colors.indigo,
-              foregroundColor: Colors.white,
-            ),
+          const Padding(padding: EdgeInsets.all(10)),
+          CustomButton(
             onPressed: () {
               if (_name.text.isNotEmpty &&
                   _email.text.isNotEmpty &&
@@ -154,14 +151,20 @@ class _RegisterViewState extends State<RegisterView> {
                 print('Password must be the same as confirm password');
               }
             },
-            child: const Text('Register'),
+            inputText: 'Register',
           ),
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pushReplacementNamed('/login');
-            },
-            child: const Text(
-                'If you are already registered, click here to log in'),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text('If you are already registered, click'),
+              TextButton(
+                style: TextButton.styleFrom(padding: EdgeInsets.zero),
+                onPressed: () {
+                  Navigator.of(context).pushReplacementNamed('/login');
+                },
+                child: const Text(' here to log in'),
+              ),
+            ],
           )
         ]),
       ),

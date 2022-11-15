@@ -1,4 +1,4 @@
-import 'package:shared_list/firestore_methods.dart';
+import 'package:shared_list/firebase/firestore_methods.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -41,7 +41,9 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
             const SizedBox(height: 50),
             buildHeader(context),
             const SizedBox(height: 10),
-            buildMenuItems(context),
+            buildProfileItems(context),
+            const Divider(color: Colors.black54),
+            buildGroupItems(context),
           ],
         ),
       ),
@@ -71,29 +73,37 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
           );
   }
 
-  Widget buildMenuItems(BuildContext context) {
+  Widget buildGroupItems(BuildContext context) {
+    return userData['groupId'] == null
+        ? Container()
+        : Column(
+            children: [
+              ListTile(
+                leading: const Icon(Icons.group_outlined),
+                title: const Text('Group members'),
+                onTap: () {
+                  Navigator.of(context).pushNamed('/groupMembersView');
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.directions_walk),
+                title: const Text('Leave Group'),
+                onTap: () async {
+                  var res = await FirestoreMethods().leaveGroup();
+                  if (res == 'success') {
+                    if (!mounted) return;
+                    Navigator.of(context)
+                        .pushNamedAndRemoveUntil('/home', (route) => false);
+                  }
+                },
+              ),
+            ],
+          );
+  }
+
+  Widget buildProfileItems(BuildContext context) {
     return Column(
       children: [
-        ListTile(
-          leading: const Icon(Icons.group_outlined),
-          title: const Text('Group members'),
-          onTap: () {
-            Navigator.of(context).pushNamed('/groupMembersView');
-          },
-        ),
-        ListTile(
-          leading: const Icon(Icons.directions_walk),
-          title: const Text('Leave Group'),
-          onTap: () async {
-            var res = await FirestoreMethods().leaveGroup();
-            if (res == 'success') {
-              if (!mounted) return;
-              Navigator.of(context)
-                  .pushNamedAndRemoveUntil('/home', (route) => false);
-            }
-          },
-        ),
-        const Divider(color: Colors.black54),
         ListTile(
           leading: const Icon(Icons.person_outline),
           title: const Text('Profile'),

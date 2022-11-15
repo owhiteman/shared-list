@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_list/views/side_navigation.dart';
-import '../firestore_methods.dart';
+import 'package:shared_list/widgets/button.dart';
+import '../firebase/firestore_methods.dart';
 import 'group_list_view.dart';
 
 class HomePage extends StatefulWidget {
@@ -41,17 +42,19 @@ class _HomePageState extends State<HomePage> {
             body: Center(
               child: Column(
                 children: [
-                  TextButton(
+                  const Padding(padding: EdgeInsets.all(10)),
+                  CustomButton(
                     onPressed: () {
                       Navigator.of(context).pushNamed('/createGroup');
                     },
-                    child: const Text('Create Group'),
+                    inputText: 'Create Group',
                   ),
-                  TextButton(
+                  const Padding(padding: EdgeInsets.all(10)),
+                  CustomButton(
                     onPressed: () {
                       Navigator.of(context).pushNamed('/joinGroup');
                     },
-                    child: const Text('Join Group'),
+                    inputText: 'Join Group',
                   ),
                 ],
               ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_list/auth/auth_service.dart';
+import 'package:shared_list/widgets/button.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -55,26 +56,26 @@ class _LoginViewState extends State<LoginView> {
             ),
           ),
           const SizedBox(height: 20),
-          TextButton(
-            style: TextButton.styleFrom(
-              textStyle: const TextStyle(fontSize: 20),
-              backgroundColor: Colors.green,
-              foregroundColor: Colors.white,
-            ),
+          CustomButton(
             onPressed: () {
               context.read<AuthService>().signIn(
                     email: _email.text.trim(),
                     password: _password.text.trim(),
                   );
             },
-            child: const Text('Login'),
+            inputText: 'Login',
           ),
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pushReplacementNamed('/register');
-            },
-            child:
-                const Text("If you aren't registered, click here to sign up"),
+          Row(
+            children: [
+              const Text("If you aren't registered, click"),
+              TextButton(
+                style: TextButton.styleFrom(padding: EdgeInsets.zero),
+                onPressed: () {
+                  Navigator.of(context).pushReplacementNamed('/register');
+                },
+                child: const Text(" here to sign up"),
+              ),
+            ],
           )
         ]),
       ),
