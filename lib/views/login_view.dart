@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_list/auth/auth_service.dart';
 import 'package:shared_list/widgets/button.dart';
+import 'package:shared_list/widgets/error_message.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -58,10 +59,20 @@ class _LoginViewState extends State<LoginView> {
           const SizedBox(height: 20),
           CustomButton(
             onPressed: () {
-              context.read<AuthService>().signIn(
-                    email: _email.text.trim(),
-                    password: _password.text.trim(),
-                  );
+              if (_email.text.isNotEmpty && _password.text.isNotEmpty) {
+                context.read<AuthService>().signIn(
+                      email: _email.text.trim(),
+                      password: _password.text.trim(),
+                    );
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                  content: ErrorMessage(
+                      errorText: 'Please enter an email and password'),
+                  behavior: SnackBarBehavior.floating,
+                  backgroundColor: Colors.transparent,
+                  elevation: 0,
+                ));
+              }
             },
             inputText: 'Login',
           ),

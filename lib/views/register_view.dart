@@ -66,18 +66,14 @@ class _RegisterViewState extends State<RegisterView> {
         padding: const EdgeInsets.all(20.0),
         child: Column(children: [
           const SizedBox(height: 10),
-          const Text('Name'),
           TextField(
             controller: _name,
             enableSuggestions: false,
             autocorrect: false,
             textCapitalization: TextCapitalization.words,
-            decoration: const InputDecoration(
-              hintText: 'Enter your name here',
-            ),
+            decoration: const InputDecoration(hintText: 'Enter your name here'),
           ),
           const SizedBox(height: 30),
-          const Text('Email'),
           TextField(
             controller: _email,
             enableSuggestions: false,
@@ -88,7 +84,6 @@ class _RegisterViewState extends State<RegisterView> {
             ),
           ),
           const SizedBox(height: 30),
-          const Text('Password'),
           TextField(
             controller: _password,
             obscureText: true,
@@ -98,13 +93,14 @@ class _RegisterViewState extends State<RegisterView> {
               hintText: 'Enter your password here',
             ),
           ),
+          const SizedBox(height: 15),
           TextField(
             controller: _confirmPassword,
             obscureText: true,
             enableSuggestions: false,
             autocorrect: false,
             decoration: const InputDecoration(
-              hintText: 'Please confirm your password here',
+              hintText: 'Confirm your password here',
             ),
           ),
           const SizedBox(height: 20),
