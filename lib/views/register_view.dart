@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_list/auth/auth_service.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_list/widgets/button.dart';
+import 'package:shared_list/widgets/text_field_stylings.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({Key? key}) : super(key: key);
@@ -71,17 +72,15 @@ class _RegisterViewState extends State<RegisterView> {
             enableSuggestions: false,
             autocorrect: false,
             textCapitalization: TextCapitalization.words,
-            decoration: const InputDecoration(hintText: 'Enter your name here'),
+            decoration: LoginTextFieldDecoration().decoration("Name"),
           ),
-          const SizedBox(height: 30),
+          const SizedBox(height: 15),
           TextField(
             controller: _email,
             enableSuggestions: false,
             autocorrect: false,
             keyboardType: TextInputType.emailAddress,
-            decoration: const InputDecoration(
-              hintText: 'Enter your email address here',
-            ),
+            decoration: LoginTextFieldDecoration().decoration("Email"),
           ),
           const SizedBox(height: 30),
           TextField(
@@ -89,9 +88,7 @@ class _RegisterViewState extends State<RegisterView> {
             obscureText: true,
             enableSuggestions: false,
             autocorrect: false,
-            decoration: const InputDecoration(
-              hintText: 'Enter your password here',
-            ),
+            decoration: LoginTextFieldDecoration().decoration("Password"),
           ),
           const SizedBox(height: 15),
           TextField(
@@ -99,9 +96,8 @@ class _RegisterViewState extends State<RegisterView> {
             obscureText: true,
             enableSuggestions: false,
             autocorrect: false,
-            decoration: const InputDecoration(
-              hintText: 'Confirm your password here',
-            ),
+            decoration:
+                LoginTextFieldDecoration().decoration("Confirm password"),
           ),
           const SizedBox(height: 20),
           //circular widget to show accepted file

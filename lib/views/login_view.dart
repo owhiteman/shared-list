@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_list/auth/auth_service.dart';
 import 'package:shared_list/widgets/button.dart';
 import 'package:shared_list/widgets/error_message.dart';
+import 'package:shared_list/widgets/text_field_stylings.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -43,18 +44,15 @@ class _LoginViewState extends State<LoginView> {
             enableSuggestions: false,
             autocorrect: false,
             keyboardType: TextInputType.emailAddress,
-            decoration: const InputDecoration(
-              hintText: "Enter your email here",
-            ),
+            decoration: LoginTextFieldDecoration().decoration("Email"),
           ),
+          const SizedBox(height: 20),
           TextField(
             controller: _password,
             obscureText: true,
             enableSuggestions: false,
             autocorrect: false,
-            decoration: const InputDecoration(
-              hintText: "Enter your password here",
-            ),
+            decoration: LoginTextFieldDecoration().decoration("Password"),
           ),
           const SizedBox(height: 20),
           CustomButton(
