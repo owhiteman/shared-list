@@ -154,7 +154,6 @@ class FirestoreMethods {
     try {
       await _firestore.collection('notes').doc(noteId).delete();
       var groupDetails = await getGroupDetails();
-      var noteIds = groupDetails['notes'];
 
       await _firestore.collection('groups').doc(groupDetails['groupId']).update(
         {

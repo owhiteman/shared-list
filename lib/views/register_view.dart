@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_list/auth/auth_service.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_list/widgets/button.dart';
+import 'package:shared_list/widgets/error_message.dart';
 import 'package:shared_list/widgets/text_field_stylings.dart';
 
 class RegisterView extends StatefulWidget {
@@ -140,7 +141,14 @@ class _RegisterViewState extends State<RegisterView> {
                     );
                 Navigator.of(context).pop();
               } else {
-                print('Password must be the same as confirm password');
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                  content: ErrorMessage(
+                      errorText:
+                          'Password does not match password confirmation'),
+                  behavior: SnackBarBehavior.floating,
+                  backgroundColor: Colors.transparent,
+                  elevation: 0,
+                ));
               }
             },
             inputText: 'Register',

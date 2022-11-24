@@ -35,8 +35,6 @@ class AuthService {
           ? await StorageMethods().uploadImageToStorage('displayPics', file)
           : null;
 
-      print(photoUrl);
-
       model.User user = model.User(
         uid: userCred.user!.uid,
         name: name,

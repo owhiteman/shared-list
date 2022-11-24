@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_list/firebase/firestore_methods.dart';
+import 'package:shared_list/widgets/text_field_stylings.dart';
 
 class CreateNoteView extends StatefulWidget {
   const CreateNoteView({super.key});
@@ -37,9 +38,7 @@ class _CreateNoteViewState extends State<CreateNoteView> {
             Expanded(
               child: TextField(
                 controller: _noteController,
-                decoration: const InputDecoration(
-                  hintText: 'Enter new note here',
-                ),
+                decoration: LoginTextFieldDecoration().decoration("New note"),
               ),
             ),
             IconButton(
