@@ -105,11 +105,6 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
     return Column(
       children: [
         ListTile(
-          leading: const Icon(Icons.person_outline),
-          title: const Text('Profile'),
-          onTap: () {},
-        ),
-        ListTile(
           leading: const Icon(Icons.logout_outlined),
           title: const Text('Log out'),
           onTap: () {

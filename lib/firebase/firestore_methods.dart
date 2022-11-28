@@ -45,7 +45,7 @@ class FirestoreMethods {
           .update({'groupId': groupId});
       status = 'success';
     } catch (e) {
-      print(e);
+      status = e.toString();
     }
     return status;
   }
@@ -65,7 +65,7 @@ class FirestoreMethods {
           .update({'groupId': groupId});
       status = 'success';
     } catch (e) {
-      print(e);
+      status = e.toString();
     }
     return status;
   }
@@ -125,7 +125,7 @@ class FirestoreMethods {
           .update({'notes': noteList});
       status = 'success';
     } catch (e) {
-      print(e);
+      status = e.toString();
     }
     return status;
   }
@@ -163,7 +163,7 @@ class FirestoreMethods {
 
       status = 'success';
     } catch (e) {
-      print(e);
+      status = e.toString();
     }
     return status;
   }
@@ -184,7 +184,7 @@ class FirestoreMethods {
           .update({'groupId': null});
       status = 'success';
     } catch (e) {
-      print(e);
+      status = e.toString();
     }
 
     return status;
